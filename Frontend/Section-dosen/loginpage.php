@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portal Login Penerbitan Informasi</title>
   <link rel="icon" type="png" href="https://sim.polibatam.ac.id/assets/img_sim/d8f9867f-23a7-4558-974b-d3c03a621fa3.png">
-  <link href="/PROJEK_PBL/Frontend/Bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <script src="/PROJEK_PBL/Frontend/AlertJS/sweetalert2.all.min.js"></script>
+  <link href="../Bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <script src="../Bootstrap/sweetalert/sweetalert2.all.min.js"></script>
 
   <style>
     body {
@@ -63,6 +63,6 @@
     </div>
   </div>
 
-  <script src="/PROJEK_PBL/Frontend/Bootstrap/js/bootstrap.bundle.js"></script>
+  <script src="../Bootstrap/js/bootstrap.bundle.js"></script>
 </body>
 </html>
