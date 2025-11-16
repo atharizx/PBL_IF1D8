@@ -8,7 +8,7 @@
   <link href="../style/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"rel="stylesheet">
   <link href="../style/icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="../style/ext.css" rel="stylesheet">
+  <link href="../style/extadmin.css" rel="stylesheet">
   <script src="../Bootstrap/AlertJS/sweetalert2.all.min.js"></script>
 </head>
 
@@ -28,7 +28,7 @@
       <h3 class="navbar-brand fw-bold mb-0">Penerbitan Informasi</h3>
     </div>
 
-    <!-- Tombol Burger Mobile -->
+    <!-- Tombol Dropdown Mobile -->
     <button
       class="menu-btn d-lg-none order-lg-3"
       type="button"
@@ -38,20 +38,21 @@
       ☰
     </button>
 
-    <!-- ISI NAVBAR KANAN-->
+    <!-- Right Navbar Content -->
     <div class="d-none d-lg-flex align-items-center gap-3 order-lg-2">
       <!-- Tombol Riwayat -->
       <a href="/PROJEK_PBL/Frontend/Section-dosen/riwayat.php" class="text-white fw-bold" style="text-decoration: none;" id="lihatRiwayat">RIWAYAT</a>
 
-      <!-- Dropdown Profil -->
+      <!-- Dropdown -->
       <div class="dropdown">
         <button class="btn p-0 border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="background: none;">
           <img src="/PROJEK_PBL/Frontend/Foto/Profil-Logo.png" width="50" class="rounded-circle border border-2 border-white" alt="Profil">
         </button>
         <ul class="dropdown-menu dropdown-menu-end shadow text-center">
           <li><p class="mb-1 fw-semibold">Affatha Rizky Sena</p></li>
-          <li><hr class="my-1"></li>
-          <li><button class="dropdown-item text-danger fw-bold">LOGOUT</button></li>
+          <li><hr class="my-1 fs-1">3312501117</li>
+          <li><button class="dropdown-item text-danger fw-bold">
+            <i class="bi bi-box-arrow-left me-2 mt-3"></i>Keluar</button></li>
         </ul>
       </div>
     </div>
@@ -75,13 +76,10 @@
       <div class="list-group mb-3">
         <a href="/PROJEK_PBL/Frontend/Section-dosen/riwayat.php"
           class="list-group-item list-group-item-action fw-semibold"
-          >📜 Riwayat</a
-        >
+          >📜 Riwayat</a>
         <button
           class="list-group-item list-group-item-action text-danger fw-bold"
-          data-bs-dismiss="offcanvas"
-        >
-          🚪 Logout
+          data-bs-dismiss="offcanvas"><i class="bi bi-box-arrow-left"></i> Keluar
         </button>
       </div>
       <hr />
