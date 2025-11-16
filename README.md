@@ -1,4 +1,4 @@
-# PBL IF 1-D8 — Sistem Informasi Kelompok 8  
+# PBL IF 1- KELOMPOK 8 — Aplikasi Pengumuman Akademik Online
 📌 *Project Based Learning – Program Studi Teknik Informatika, Politeknik Negeri Batam*  
 📅 Tahun Akademik 2025/2026 
 
