@@ -5,80 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Penerbitan Informasi</title>
   <link href="https://sim.polibatam.ac.id/assets/img_sim/d8f9867f-23a7-4558-974b-d3c03a621fa3.png" rel="icon">
-  <link href="../Bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../style/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"rel="stylesheet">
-  <link href="../Bootstrap/icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../style/icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../style/ext.css" rel="stylesheet">
   <script src="../Bootstrap/AlertJS/sweetalert2.all.min.js"></script>
-
-  <style>
-    html,
-    body {
-      height: 100%;
-      font-family: "Roboto", sans-serif;
-    }
-
-    body {
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-
-    main {
-      flex: 1;
-    }
-
-    .sidebar {
-      min-height: 100vh;
-    }
-
-    section {
-      display: none;
-    }
-    section.active {
-      display: block;
-    }
-
-    .btn-upload {
-      display: flex;
-      justify-content: flex-end;
-    }
-
-    .modal-content {
-      background-color: rgba(40, 40, 40, 0.95);
-      backdrop-filter: blur(6px);
-    }
-
-    /* MOBILE STYLING */
-    @media (max-width: 991.98px) {
-      .sidebar {
-        display: none;
-      }
-
-      .offcanvas-sidebar {
-        width: 80%;
-        background-color: #f8f9fa;
-      }
-
-      .navbar .menu-btn {
-        border: none;
-        background: none;
-        color: white;
-        font-size: 1.6rem;
-      }
-
-      .navbar-brand h3 {
-        font-size: 1.25rem;
-      }
-
-      .navbar img[alt="Logo"] {
-        width: 50px;
-      }
-
-      main .col-md-9 {
-        width: 100%;
-      }
-    }
-  </style>
 </head>
 
 <body class="bg-light d-flex flex-column">
@@ -365,7 +296,7 @@
     </div>
   </div>
 
-  <script src="../Bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="/Frontend/Section-dosen/dosen.js"></script>
+  <script src="../style/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
