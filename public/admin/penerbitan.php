@@ -74,7 +74,7 @@
 
     <div class="offcanvas-body">  
       <div class="list-group mb-3">
-        <a href="/PROJEK_PBL/Frontend/Section-dosen/riwayat.php"
+        <a href="../admin/riwayat.php"
           class="list-group-item list-group-item-action fw-semibold"
           >📜 Riwayat</a>
         <button
@@ -219,7 +219,7 @@
 
           <!-- PERUBAHAN KELAS -->
           <section id="perubahanKelas">
-            <form method="post">
+            <form method="post" id="formKelas">
               <div class="mb-3">
                 <label for="judulKelas" class="fw-semibold form-label">Judul Informasi</label>
                 <input type="text" id="judulKelas" name="judulKelas" class="form-control" placeholder="Masukkan Judul Informasi">
