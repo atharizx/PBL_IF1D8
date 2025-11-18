@@ -1,13 +1,14 @@
 <?php
-$server = "localhost";
+
+$host = "localhost";
 $username   = "root";
 $password   = "";
-$db   = "login_system"; 
+$db   = "pbl"; 
 
-$conn = mysqli_connect($server, $username, $password, $db);
+$conn = mysqli_connect($host, $username, $password, $db);
 
-if (!$conn === false) {
-    die("Koneksi gagal : " . mysqli_connect_error());
+if (!$conn) {
+    die("Gagal mengakses Database : " . mysqli_connect_error());
 }
 
 ?>
