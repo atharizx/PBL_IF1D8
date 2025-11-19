@@ -11,7 +11,7 @@ session_start();
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portal Login</title>
   <link rel="icon" type="png" href="https://sim.polibatam.ac.id/assets/img_sim/d8f9867f-23a7-4558-974b-d3c03a621fa3.png">
-  <link href="../vendor/boostrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="../style/extlogin.css" rel="stylesheet">
   <script src="../vendor/sweetalert/sweetalert/sweetalert2.all.min.js"></script>
 </head>
