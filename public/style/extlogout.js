@@ -8,7 +8,7 @@ function logoutconfirm() {
         cancelButtonText : 'Batal'
     }).then((result) => {
         if (result.isConfirmed) {
-            window.location.href = '../../controller/logout.php';
+            window.location.href = '../../app/controller/logout_controller.php';
         }
     });
 }
