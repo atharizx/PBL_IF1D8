@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Beranda</title>
   <link rel="icon" href="https://sim.polibatam.ac.id/assets/img_sim/d8f9867f-23a7-4558-974b-d3c03a621fa3.png">
-  <link href="../style/css/bootstrap.min.css" rel="stylesheet">
-  <link href="../style/icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../vendoor/bootstrap/icons/bootstrap-icons.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-  <script src="../sweetalert/sweetalert2.all.min.js"></script>
+  <script src="../vendor/sweetalert/sweetalert2.all.min.js"></script>
   <link href="../style/extuser.css" rel="stylesheet">
 
 </head>
@@ -34,16 +34,16 @@
       <div class="collapse navbar-collapse" id="navbarMenu">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-lg-center">
           <li class="nav-item">
-            <a href="../Section-mahasiswa/beranda.php" class="nav-link fw-semibold text-white">Beranda</a>
+            <a href="../user/beranda.php" class="nav-link fw-semibold text-white">Beranda</a>
           </li>
           <li class="nav-item">
-            <a href="../Section-mahasiswa/jadwalujian.php" class="nav-link fw-semibold text-white">Jadwal Ujian</a>
+            <a href="../user/jadwalujian.php" class="nav-link fw-semibold text-white">Jadwal Ujian</a>
           </li>
           <li class="nav-item">
-            <a href="../Section-mahasiswa/beasiswa.php" class="nav-link fw-semibold text-white">Beasiswa</a>
+            <a href="../user/beasiswa.php" class="nav-link fw-semibold text-white">Beasiswa</a>
           </li>
           <li class="nav-item">
-            <a href="../Section-mahasiswa/perubahankelas.php" class="nav-link fw-semibold text-white">Perubahan Kelas</a>
+            <a href="../user/perubahankelas.php" class="nav-link fw-semibold text-white">Perubahan Kelas</a>
           </li>
         </ul>
       </div>
@@ -65,13 +65,13 @@
           <!-- ISI CAROUSEL -->
           <div class="carousel-inner">
             <div class="carousel-item active">
-              <img src="../Foto/CarouselPolibatam.jpg" class="d-block w-100" alt="Gambar 1">
+              <img src="../assets/CarouselPolibatam.jpg" class="d-block w-100" alt="Gambar 1">
             </div>
             <div class="carousel-item">
-              <img src="../Foto/BackgroundPOLTEK.png" class="d-block w-100" alt="Gambar 2">
+              <img src="../assets/BackgroundPOLTEK.png" class="d-block w-100" alt="Gambar 2">
             </div>
             <div class="carousel-item">
-              <img src="../Foto/PolibatamCarousel3.webp" class="d-block w-100" alt="Gambar 3">
+              <img src="../assets/PolibatamCarousel3.webp" class="d-block w-100" alt="Gambar 3">
             </div>
           </div>
 
@@ -218,7 +218,7 @@
 </div>
 
 <!-- JavaScript -->
-  <script src="../style/js/bootstrap.bundle.js"></script>
+  <script src="../vendor/boostrap/js/bootstrap.bundle.js"></script>
   
 </body>
 </html>
