@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Beasiswa</title>
   <link rel="icon" href="https://sim.polibatam.ac.id/assets/img_sim/d8f9867f-23a7-4558-974b-d3c03a621fa3.png">
-  <link href="../style/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="../style/icons/bootstrap-icons.css">
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../vendoor/bootstrap/icons/bootstrap-icons.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../style/extuser.css">
+  <script src="../vendor/sweetalert/sweetalert2.all.min.js"></script>
+  <link href="../style/extuser.css" rel="stylesheet">
 
 </head>
 
@@ -19,7 +21,7 @@
       <!-- LOGO + JUDUL -->
       <a class="navbar-brand d-flex align-items-center" href="#">
         <img src="https://sim.polibatam.ac.id/assets/img_sim/d8f9867f-23a7-4558-974b-d3c03a621fa3.png"
-             alt="Logo" width="60" class="me-2">
+          alt="Logo" width="60" class="me-2">
         <span class="fw-semibold">Pengumuman Akademik Online</span>
       </a>
 
@@ -33,16 +35,16 @@
       <div class="collapse navbar-collapse" id="navbarMenu">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-lg-center">
           <li class="nav-item">
-            <a href="../Section-mahasiswa/beranda.php" class="nav-link fw-semibold text-white">Beranda</a>
+            <a href="../user/beranda.php" class="nav-link fw-semibold text-white">Beranda</a>
           </li>
           <li class="nav-item">
-            <a href="../Section-mahasiswa/jadwalujian.php" class="nav-link fw-semibold text-white">Jadwal Ujian</a>
+            <a href="../user/jadwalujian.php" class="nav-link fw-semibold text-white">Jadwal Ujian</a>
           </li>
           <li class="nav-item">
-            <a href="../Section-mahasiswa/beasiswa.php" class="nav-link fw-semibold text-white">Beasiswa</a>
+            <a href="../user/beasiswa.php" class="nav-link fw-semibold text-white">Beasiswa</a>
           </li>
           <li class="nav-item">
-            <a href="../Section-mahasiswa/perubahankelas.php" class="nav-link fw-semibold text-white">Perubahan Kelas</a>
+            <a href="../user/perubahankelas.php" class="nav-link fw-semibold text-white">Perubahan Kelas</a>
           </li>
         </ul>
       </div>
@@ -53,50 +55,34 @@
   <main>
     <!-- BERANDA -->
     <section id="beranda" class="active">
-      
-    <!-- PENGUMUMAN TERBARU -->
-    <section id="pengumuman-terbaru">
-      <div class="container mt-5">
-        <h2 class="text-center mb-3 fw-semibold">INFORMASI BEASISWA TERBARU</h2>
 
-        <!-- Filter + Search Bar -->
-        <div class="d-flex justify-content-start align-items-center mb-5 gap-2">
-          <button class="btn btn-primary" id="openFilter" data-bs-toggle="modal" data-bs-target="#filterModal">
-            <i class="bi bi-funnel-fill"></i>Filter
-          </button>
-        </div>
+      <!-- PENGUMUMAN TERBARU -->
+      <section id="pengumuman-terbaru">
+        <div class="container mt-5">
+          <h2 class="text-center mb-3 fw-semibold">INFORMASI BEASISWA TERBARU</h2>
 
-        <div class="row" id="cardContainer">
-          
-        </div>
-
-        <!-- Detail Informasi Jadwal Ujian -->
-        <div class="hidden" id="detailPage">
-          <button class="btn btn-secondary" id="backBTN">
-            <i class="bi bi-box-arrow-left"></i> Kembali
-          </button>
-          <div class="card shadow-sm">
-            <div class="card-body">
-              <h3 id="detailTitle"></h3>
-              <p class="text-muted" id="detailDate"></p>
-              <div id="detailContent">
-                <!-- Konten detail akan dirender di sini -->
-              </div>
-            </div>
+          <!-- Filter + Search Bar -->
+          <div class="d-flex justify-content-start align-items-center mb-5 gap-2">
+            <button class="btn btn-primary" id="openFilter" data-bs-toggle="modal" data-bs-target="#filterModal">
+              <i class="bi bi-funnel-fill"></i>Filter
+            </button>
           </div>
-        </div>
 
-        <!-- BIO WEB -->
-        <section id="bioweb" class="container mt-5 mb-5">
-          <h3 class="fw-semibold mt-3">Tentang WEB</h3>
-          <p class="fs-6">
-            Web Pengumuman Akademik Online adalah platform berbasis web yang dirancang untuk mempermudah penyampaian informasi akademik kepada mahasiswa secara cepat, efisien, dan terpusat.
-            Melalui sistem ini, mahasiswa dapat mengakses berbagai pengumuman penting seperti jadwal ujian, Beasiswa dan perubahan kelas kapan saja dan di mana saja.
-          </p>
-        </section>
-      </div>
-    </section>
-    </main>
+          <div class="row" id="cardContainer">
+
+          </div>
+
+          <!-- BIO WEB -->
+          <section id="bioweb" class="container mt-5 mb-5">
+            <h3 class="fw-semibold mt-3">Tentang WEB</h3>
+            <p class="fs-6">
+              Web Pengumuman Akademik Online adalah platform berbasis web yang dirancang untuk mempermudah penyampaian informasi akademik kepada mahasiswa secara cepat, efisien, dan terpusat.
+              Melalui sistem ini, mahasiswa dapat mengakses berbagai pengumuman penting seperti jadwal ujian, Beasiswa dan perubahan kelas kapan saja dan di mana saja.
+            </p>
+          </section>
+        </div>
+      </section>
+  </main>
 
   <!-- FOOTER -->
   <footer class="gradient-background text-white py-2 mt-5">
@@ -104,7 +90,7 @@
       <div class="row align-items-center">
         <div class="col-md-4 text-center text-md-start mb-3 mb-md-0">
           <img src="https://sim.polibatam.ac.id/assets/img_sim/d8f9867f-23a7-4558-974b-d3c03a621fa3.png"
-               alt="Logo" width="175">
+            alt="Logo" width="175">
         </div>
 
         <div class="col-md-4">
@@ -160,45 +146,46 @@
     </div>
   </div>
 
-  
+
   <!-- Modal Detail Jadwal -->
-<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content bg-light border-0 shadow-lg rounded-4">
-      <!-- Header -->
-      <div class="modal-header border-0">
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-
-      <!-- Body -->
-      <div class="modal-body">
-        <!-- Gambar -->
-        <div class="mb-3">
-          <!-- Tempat Render Gambar -->
+  <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content bg-light border-0 shadow-lg rounded-4">
+        <!-- Header -->
+        <div class="modal-header border-0">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
-        <!-- Judul & Tanggal -->
-        <div class="d-flex justify-content-between align-items-start mb-3">
-          <h4 class="fw-bold" id="modalTitle"></h4>
-          <small class="fw-semibold text-muted" id="modalDate"></small>
-        </div>
+        <!-- Body -->
+        <div class="modal-body">
+          <!-- Gambar -->
+          <div class="mb-3">
+            <!-- Tempat Render Gambar -->
+          </div>
 
-        <!-- Deskripsi -->
-        <div id="isiModal" class="text-dark text-warp" style="line-height: 1.6;">
-          
-        </div>
+          <!-- Judul & Tanggal -->
+          <div class="d-flex justify-content-between align-items-start mb-3">
+            <h4 class="fw-bold" id="modalTitle"></h4>
+            <small class="fw-semibold text-muted" id="modalDate"></small>
+          </div>
 
-        <!-- Link Download -->
-        <div class="mt-4">
-          <p class="fw-semibold text-danger mb-1" id="modalContent"></p>
-          <a href="#" id="detailLink" target="_blank" class="text-decoration-none fw-bold text-primary"></a>
+          <!-- Deskripsi -->
+          <div id="isiModal" class="text-dark text-warp" style="line-height: 1.6;">
+
+          </div>
+
+          <!-- Link Download -->
+          <div class="mt-4">
+            <p class="fw-semibold text-danger mb-1" id="modalContent"></p>
+            <a href="#" id="detailLink" target="_blank" class="text-decoration-none fw-bold text-primary"></a>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-  <script src="../style/js/bootstrap.bundle.js"></script>
+  <script src="../vendor/bootstrap/js/bootstrap.bundle.js"></script>
 
 </body>
+
 </html>
