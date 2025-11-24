@@ -35,6 +35,11 @@
       background-color: rgba(40, 40, 40, 0.95);
       backdrop-filter: blur(6px);
     }
+    .list-group-item.active {
+    background-color: var(--bs-primary) !important;
+    border-color: var(--bs-primary) !important;
+    color: #fff !important;
+    }
 
     /* MOBILE STYLING */
     @media (max-width: 991.98px) {
