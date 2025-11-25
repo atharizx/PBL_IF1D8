@@ -8,7 +8,7 @@ function alertSuccess()
             Swal.fire({
                 icon: 'success',
                 title: 'Login berhasil',
-                text: '" . $_SESSION['login_success'] . "',
+                html: '" . $_SESSION['login_success'] . "',
                 timer: 1500,
                 showConfirmButton: false
             });
@@ -70,5 +70,57 @@ function alertLogout($btnDesktopID, $btnMobileID)
     });
     </script>
     ";
+}
+
+//Alert Input Data Jadwal
+function alertInputSuccess() {
+    if (isset($_SESSION['msg_success'])) {
+        echo "
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: '" . $_SESSION['msg_success'] . "',
+                timer: 1500,
+                showConfirmButton: false
+            });
+        </script>
+        ";
+        unset($_SESSION['msg_success']);
+    }
+}
+
+function alertInputError() {
+    if (isset($_SESSION['msg_error'])) {
+        echo "
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: '" . $_SESSION['msg_error'] . "',
+                timer: 1500,
+                showConfirmButton: false
+            });
+        </script>
+        ";
+        unset($_SESSION['msg_error']);
+    }
+}
+
+function alertInputEmpty() {
+    if (isset($_SESSION['msg_empty'])) {
+        echo "
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Input Kosong!',
+                html: '" . $_SESSION['msg_empty'] . "',
+                timer: 1500,
+                showConfirmButton: false
+            });
+        </script>
+        ";
+        unset($_SESSION['msg_empty']);
+    }
 }
 
