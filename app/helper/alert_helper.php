@@ -1,38 +1,79 @@
 <?php
 
-function alertSuccess()
+function alertWithoutBtn($sessionKey, $icon, $title)
 {
-    if (isset($_SESSION['login_success'])) {
+    if (isset($_SESSION[$sessionKey])) {
         echo "
         <script>
             Swal.fire({
-                icon: 'success',
-                title: 'Login berhasil',
-                html: '" . $_SESSION['login_success'] . "',
+                icon: '$icon',
+                title: '$title',
+                html: '" . $_SESSION[$sessionKey] . "',
                 timer: 1500,
                 showConfirmButton: false
             });
         </script>
         ";
-        unset($_SESSION['login_success']);
+        unset($_SESSION[$sessionKey]);
     }
 }
 
-function alertError()
+function alertWithConfirmBtn($sessionKey, $icon, $title, $confirmButtonText)
 {
-    if (isset($_SESSION['login_error'])) {
+    if (isset($_SESSION[$sessionKey])) {
         echo "
         <script>
-        Swal.fire({
-            icon: 'error',
-            title: 'Login gagal',
-            text: '" . $_SESSION['login_error'] . "',
-            timer: 1500,
-            showConfirmButton: false
-        });
+            Swal.fire({
+                icon: $icon,
+                title: $title,
+                html: '" . $_SESSION[$sessionKey] . "',
+                timer: 1500,
+                showConfirmButton: true,
+                confirmButtonText: $confirmButtonText,
+            });
         </script>
         ";
-        unset($_SESSION['login_error']);
+        unset($_SESSION[$sessionKey]);
+    }
+}
+
+function alertWithCancelBtn($sessionKey, $icon, $title, $cancelButtonText)
+{
+    if (isset($_SESSION[$sessionKey])) {
+        echo "
+        <script>
+            Swal.fire({
+                icon: $icon,
+                title: $title,
+                html: '" . $_SESSION[$sessionKey] . "',
+                timer: 1500,
+                showCancelmButton: true,
+                cancelButtonText: $cancelButtonText,
+            });
+        </script>
+        ";
+        unset($_SESSION[$sessionKey]);
+    }
+}
+
+function alertWithTwoBtn($sessionKey, $icon, $title, $confirmButtonText, $cancelButtonText)
+{
+    if (isset($_SESSION[$sessionKey])) {
+        echo "
+        <script>
+            Swal.fire({
+                icon: $icon,
+                title: $title,
+                html: '" . $_SESSION[$sessionKey] . "',
+                timer: 1500,
+                showConfirmButton: true,
+                confirmButtonText: $confirmButtonText,
+                showCancelButton: true,
+                cancelButtonText: $cancelButtonText
+            });
+        </script>
+        ";
+        unset($_SESSION[$sessionKey]);
     }
 }
 
@@ -72,55 +113,4 @@ function alertLogout($btnDesktopID, $btnMobileID)
     ";
 }
 
-//Alert Input Data Jadwal
-function alertInputSuccess() {
-    if (isset($_SESSION['msg_success'])) {
-        echo "
-        <script>
-            Swal.fire({
-                icon: 'success',
-                title: 'Berhasil!',
-                text: '" . $_SESSION['msg_success'] . "',
-                timer: 1500,
-                showConfirmButton: false
-            });
-        </script>
-        ";
-        unset($_SESSION['msg_success']);
-    }
-}
-
-function alertInputError() {
-    if (isset($_SESSION['msg_error'])) {
-        echo "
-        <script>
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: '" . $_SESSION['msg_error'] . "',
-                timer: 1500,
-                showConfirmButton: false
-            });
-        </script>
-        ";
-        unset($_SESSION['msg_error']);
-    }
-}
-
-function alertInputEmpty() {
-    if (isset($_SESSION['msg_empty'])) {
-        echo "
-        <script>
-            Swal.fire({
-                icon: 'error',
-                title: 'Input Kosong!',
-                html: '" . $_SESSION['msg_empty'] . "',
-                timer: 1500,
-                showConfirmButton: false
-            });
-        </script>
-        ";
-        unset($_SESSION['msg_empty']);
-    }
-}
 
