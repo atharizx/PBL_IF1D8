@@ -9,7 +9,7 @@ function alertWithoutBtn($sessionKey, $icon, $title)
                 icon: '$icon',
                 title: '$title',
                 html: " . json_encode($_SESSION[$sessionKey]) . ",
-                timer: 1700,
+                timer: 1900,
                 showConfirmButton: false
             });
         </script>
@@ -27,7 +27,6 @@ function alertWithConfirmBtn($sessionKey, $icon, $title, $confirmButtonText)
                 icon: '$icon',
                 title: '$title',
                 html: '" . $_SESSION[$sessionKey] . "',
-                timer: 1500,
                 showConfirmButton: true,
                 confirmButtonText: '$confirmButtonText',
             });
@@ -47,7 +46,6 @@ function alertWithCancelBtn($sessionKey, $icon, $title, $cancelButtonText)
                 icon: '$icon',
                 title: '$title',
                 html: '" . $_SESSION[$sessionKey] . "',
-                timer: 1500,
                 showCancelButton: true,
                 cancelButtonText: '$cancelButtonText',
             });
@@ -66,65 +64,11 @@ function alertWithTwoBtn($sessionKey, $icon, $title, $confirmButtonText, $cancel
                 icon: '$icon',
                 title: '$title',
                 html: '" . $_SESSION[$sessionKey] . "',
-                timer: 1500,
                 showConfirmButton: true,
                 confirmButtonText: '$confirmButtonText',
                 showCancelButton: true,
                 cancelButtonText: '$cancelButtonText'
             });
-        </script>
-        ";
-        unset($_SESSION[$sessionKey]);
-    }
-}
-
-function alertWithConfirmButtonWithoutTimer($sessionKey, $icon, $title, $confirmButtonText) {
-    if (isset($_SESSION[$sessionKey])) {
-        echo "
-        <script>
-            Swal.fire({
-                icon: '$icon',
-                title: '$title',
-                html: '" . $_SESSION[$sessionKey] . "',
-                showConfirmButton: true,
-                confirmButtonText: '$confirmButtonText',
-            });
-        </script>
-        ";
-        unset($_SESSION[$sessionKey]);
-    }
-}
-
-function alertWithCancelButtonWithoutTimer($sessionKey, $icon, $title, $cancelButtonText) {
-    if (isset($_SESSION[$sessionKey])) {
-        echo "
-        <script>
-            Swal.fire ({
-                icon: '$icon',
-                title: '$title',
-                html: '" . $_SESSION[$sessionKey] . "',
-                showCancelButton: true,
-                cancelButtonText: '$cancelButtonText',
-            )};
-        </script>
-        ";
-        unset($_SESSION[$sessionKey]);
-    }
-}
-
-function alertWithTwoButtonWithoutTimer($sessionKey, $icon, $title, $confirmButtonText, $cancelButtonText) {
-    if (isset($_SESSION[$sessionKey])) {
-        echo "
-        <script>
-            Swal.fire ({
-                icon: '$icon',
-                title: '$title',
-                html: '" . $_SESSION[$sessionKey] . "',
-                showConfirmButton: true,
-                confirmButtonText: '$confirmButtonText',
-                showCancelButton: true,
-                cancelButtonText: '$cancelButtonText',
-            )}
         </script>
         ";
         unset($_SESSION[$sessionKey]);
@@ -187,22 +131,3 @@ function alertLogout($btnDesktopID, $btnMobileID)
     </script>
     ";
 }
-
-function clearAlertMsg() {
-    $alertKey = [
-        'msg_empty',
-        'msg_size',
-        'msg_type',
-        'msg_success',
-        'msg_error'
-    ];
-
-    foreach ($alertKey as $key) {
-        if (isset($_SESSION[$key])) {
-            unset($_SESSION[$key]);
-        }
-    };
-}
-
-
-
