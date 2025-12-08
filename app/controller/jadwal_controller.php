@@ -47,7 +47,7 @@ if ($isUploadImg) {
     if (!in_array($extImg, $allowedImgJadwal)) $errorTypeJadwal[] = "<b>Foto Jadwal </b>";
 }
 
-// RESPOND ERROR SESSION
+// Respond Semua Error
 if (!empty($errorJadwal)) {
     $_SESSION['msg_empty_jadwal'] = "Input " . implode(", ", $errorJadwal) . " " . $helperAlertJadwal;
     header("Location: ../../public/admin/penerbitan.php");
@@ -63,8 +63,13 @@ if ($errorTypeJadwal) {
     header("Location: ../../public/admin/penerbitan.php");
     exit();
 }
+
+// Proses Mengganti Nama File
+
+// File Excel
 $excelJadwalNewName = uploadFile($excelJadwal, "../../public/upload/jadwalUjian/excel/", "ExceljadwalUjian");
-// UPLOAD FILE (HANYA JIKA ADA)
+
+// File Foto
 if ($isUploadImg) {
     $fotoJadwalNewName = uploadFile($fotoJadwal, "../../public/upload/jadwalUjian/img/", "gambarJadwal");
 } else {
@@ -74,18 +79,18 @@ if ($isUploadImg) {
 require_once '../models/upload_model.php';
 
 $data = [
-    'judul' => $judulJadwal,
+    'judul'        => $judulJadwal,
     'deskripsi'    => $deskripsiJadwal,
     'masaberlaku'  => $masaBerlakuJadwal,
-    'jurusan' => $jurusanJadwal,
-    'fotojadwal' => $fotoJadwalNewName,
-    'exceljadwal' => $excelJadwalNewName
+    'jurusan'      => $jurusanJadwal,
+    'fotojadwal'   => $fotoJadwalNewName,
+    'exceljadwal'  => $excelJadwalNewName,
 ];
 
 $insertJadwal = storeData($conn, "jadwalujian", $data);
 
 if ($insertJadwal) {
-    $_SESSION['msg_success_jadwal'] = "Informasi jadwal Berhasil Ditambahkan.";
+    $_SESSION['msg_success_jadwal'] = "Informasi jadwal Ujian Berhasil Ditambahkan.";
 } else {
     $_SESSION['msg_error_jadwal'] = "Gagal Menambahkan Informasi.";
 }
