@@ -66,7 +66,7 @@ if ($errorTypeKelas) {
     exit();
 }
 
-// PROSES UPLOAD FILE
+// Proses Mengganti Nama File
 
 // File Excel
 $excelKelasNewName = uploadFile($excelKelas, "../../public/upload/perubahanKelas/excel/", "ExcelPerubahanKelas");
