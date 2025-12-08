@@ -1,3 +1,13 @@
+<?php
+require_once '../../app/config/db_conn.php';
+require_once '../../app/component/userCard.php';
+require_once '../../app/models/expiredCheck_model.php';
+
+autoDeleteExpiredInformation($conn, "jadwalujian");
+autoDeleteExpiredInformation($conn, "beasiswa");
+autoDeleteExpiredInformation($conn, "perubahankelas");
+
+?>
 <!DOCTYPE html>
 <html lang="id">
 
@@ -5,7 +15,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Beasiswa</title>
-  <link rel="icon" href="https://sim.polibatam.ac.id/assets/img_sim/d8f9867f-23a7-4558-974b-d3c03a621fa3.png">
+  <link rel="icon" href="../assets/Logo-Poltek.png">
   <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="../vendoor/bootstrap/icons/bootstrap-icons.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -15,17 +25,16 @@
 </head>
 
 <body>
-  <!-- NAVBAR RESPONSIVE -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-black">
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-1">
     <div class="container-fluid">
       <!-- LOGO + JUDUL -->
       <a class="navbar-brand d-flex align-items-center" href="#">
-        <img src="https://sim.polibatam.ac.id/assets/img_sim/d8f9867f-23a7-4558-974b-d3c03a621fa3.png"
-          alt="Logo" width="60" class="me-2">
-        <span class="fw-semibold">Pengumuman Akademik Online</span>
+        <img src="../assets/Logo-Poltek3.png"
+          alt="Logo" width="150" class="me-2">
       </a>
 
-      <!-- TOMBOL TOGGLER (HAMBURGER) UNTUK MOBILE -->
+      <!-- TOMBOL DROPDOWN MOBILE -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu"
         aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -35,16 +44,16 @@
       <div class="collapse navbar-collapse" id="navbarMenu">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-lg-center">
           <li class="nav-item">
-            <a href="../user/beranda.php" class="nav-link fw-semibold text-white">Beranda</a>
+            <a href="../user/beranda.php" class="nav-link fw-semibold">Beranda</a>
           </li>
           <li class="nav-item">
-            <a href="../user/jadwalujian.php" class="nav-link fw-semibold text-white">Jadwal Ujian</a>
+            <a href="../user/jadwalujian.php" class="nav-link fw-semibold">Jadwal Ujian</a>
           </li>
           <li class="nav-item">
-            <a href="../user/beasiswa.php" class="nav-link fw-semibold text-white">Beasiswa</a>
+            <a href="../user/beasiswa.php" class="nav-link fw-semibold">Beasiswa</a>
           </li>
           <li class="nav-item">
-            <a href="../user/perubahankelas.php" class="nav-link fw-semibold text-white">Perubahan Kelas</a>
+            <a href="../user/perubahankelas.php" class="nav-link fw-semibold">Perubahan Kelas</a>
           </li>
         </ul>
       </div>
@@ -63,13 +72,15 @@
 
           <!-- Filter + Search Bar -->
           <div class="d-flex justify-content-start align-items-center mb-5 gap-2">
-            <button class="btn btn-primary" id="openFilter" data-bs-toggle="modal" data-bs-target="#filterModal">
+            <button class="btn btn-primary shadow" id="openFilter" data-bs-toggle="modal" data-bs-target="#filterModal">
               <i class="bi bi-funnel-fill"></i>Filter
             </button>
           </div>
 
           <div class="row" id="cardContainer">
-
+            <?php
+            renderCardBeasiswa($conn);
+            ?>
           </div>
 
           <!-- BIO WEB -->
@@ -85,12 +96,12 @@
   </main>
 
   <!-- FOOTER -->
-  <footer class="gradient-background text-white py-2 mt-5">
+  <footer class="gradient-background text-white py-1 mt-5">
     <div class="container">
       <div class="row align-items-center">
         <div class="col-md-4 text-center text-md-start mb-3 mb-md-0">
-          <img src="https://sim.polibatam.ac.id/assets/img_sim/d8f9867f-23a7-4558-974b-d3c03a621fa3.png"
-            alt="Logo" width="175">
+          <img src="../assets/Logo-Poltek.png"
+            alt="Logo" width="250">
         </div>
 
         <div class="col-md-4">
@@ -102,20 +113,19 @@
 
         <div class="col-md-4 text-center mt-0">
           <h5>Ikuti Kami</h5>
-          <a href="https://www.instagram.com/polibatamofficial?igsh=eGpjZm5jZmR4NTJy" class="btn btn-success mb-2"><i class="bi bi-instagram"></i>Instagram</a><br>
-          <a href="https://www.facebook.com/share/197ijZ4QfT/" class="btn btn-primary me-1"><i class="bi bi-facebook"></i>Facebook</a>
-          <a href="https://www.youtube.com/@PolibatamTV" class="btn btn-danger"><i class="bi bi-youtube"></i>Youtube</a>
+          <a href="https://www.instagram.com/polibatamofficial?igsh=eGpjZm5jZmR4NTJy" class="btn btn-success mb-2 shadow"><i class="bi bi-instagram"></i>Instagram</a><br>
+          <a href="https://www.facebook.com/share/197ijZ4QfT/" class="btn btn-primary me-1"><i class="bi bi-facebook shadow"></i>Facebook</a>
+          <a href="https://www.youtube.com/@PolibatamTV" class="btn btn-danger"><i class="bi bi-youtube shadow"></i>Youtube</a>
         </div>
       </div>
     </div>
   </footer>
 
-  <footer class="bg-black text-white py-2">
+  <footer class="bg-black text-white py-1">
     <div class="container text-center">
       <p class="mb-0 fs-6">© 2025 Politeknik Negeri Batam</p>
     </div>
   </footer>
-
   <!-- MODAL FILTER -->
   <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
