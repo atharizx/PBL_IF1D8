@@ -30,7 +30,7 @@ if (empty(trim($deskripsiBeasiswa)))    $errorBeasiswa[] = "<b>Deskripsi</b>";
 if (empty(trim($masaBerlakuBeasiswa)))  $errorBeasiswa[] = "<b>Masa Berlaku</b>";
 if (empty(trim($linkpendaftaran))) $errorBeasiswa[] = "<b>Link Pendaftaran</b>";
 
-// VALIDASI FILE (HANYA JIKA ADA UPLOAD)
+// VALIDASI FILE
 $isUploadImg = $fotoBeasiswa && $fotoBeasiswa['error'] === 0;
 if ($isUploadImg) {
     if ($fotoBeasiswa['size'] > $maxSizeBeasiswa) $errorSizeBeasiswa[] = "<b>Foto Beasiswa</b>";
@@ -38,7 +38,7 @@ if ($isUploadImg) {
     if (!in_array($extImg, $allowedImgBeasiswa)) $errorTypeBeasiswa[] = "<b>Foto Beasiswa</b>";
 }
 
-// RESPOND ERROR SESSION
+// Respond Session Error
 if (!empty($errorBeasiswa)) {
     $_SESSION['msg_empty_beasiswa'] = "Input " . implode(", ", $errorBeasiswa) . " " . $helperAlertBeasiswa;
     header("Location: ../../public/admin/penerbitan.php");
@@ -55,7 +55,9 @@ if ($errorTypeBeasiswa) {
     exit();
 }
 
-// UPLOAD FILE (HANYA JIKA ADA)
+// Proses Penggantian Nama File
+
+// File Foto (Jika Ada)
 if ($isUploadImg) {
     $fotoBeasiswaNewName = uploadFile($fotoBeasiswa, "../../public/upload/beasiswa/img/", "gambarBeasiswa");
 } else {
