@@ -1,12 +1,25 @@
+<?php
+session_start();
+require_once '../../app/models/expiredCheck_model.php';
+require_once '../../app/config/db_conn.php';
+require_once '../../app/component/userCard.php';
+
+autoDeleteExpiredInformation($conn, "jadwalujian");
+autoDeleteExpiredInformation($conn, "beasiswa");
+autoDeleteExpiredInformation($conn, "perubahankelas");
+
+
+?>
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Beranda</title>
-  <link rel="icon" href="https://sim.polibatam.ac.id/assets/img_sim/d8f9867f-23a7-4558-974b-d3c03a621fa3.png">
+  <link rel="icon" href="../assets/Logo-Poltek.png">
   <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="../vendoor/bootstrap/icons/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="../vendor/bootstrap/icons/bootstrap-icons.css">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <script src="../vendor/sweetalert/sweetalert2.all.min.js"></script>
   <link href="../style/extuser.css" rel="stylesheet">
@@ -14,17 +27,16 @@
 </head>
 
 <body>
-  <!-- NAVBAR RESPONSIVE -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-black">
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-0">
     <div class="container-fluid">
       <!-- LOGO + JUDUL -->
       <a class="navbar-brand d-flex align-items-center" href="#">
-        <img src="https://sim.polibatam.ac.id/assets/img_sim/d8f9867f-23a7-4558-974b-d3c03a621fa3.png"
-             alt="Logo" width="60" class="me-2">
-        <span class="fw-semibold">Pengumuman Akademik Online</span>
+        <img src="../assets/Logo-Poltek3.png"
+          alt="Logo" width="150" class="me-2">
       </a>
 
-      <!-- TOMBOL (HAMBURGER) UNTUK MOBILE -->
+      <!-- TOMBOL DROPDOWN MOBILE -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu"
         aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -34,16 +46,16 @@
       <div class="collapse navbar-collapse" id="navbarMenu">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-lg-center">
           <li class="nav-item">
-            <a href="../user/beranda.php" class="nav-link fw-semibold text-white">Beranda</a>
+            <a href="../user/beranda.php" class="nav-link fw-semibold">Beranda</a>
           </li>
           <li class="nav-item">
-            <a href="../user/jadwalujian.php" class="nav-link fw-semibold text-white">Jadwal Ujian</a>
+            <a href="../user/jadwalujian.php" class="nav-link fw-semibold">Jadwal Ujian</a>
           </li>
           <li class="nav-item">
-            <a href="../user/beasiswa.php" class="nav-link fw-semibold text-white">Beasiswa</a>
+            <a href="../user/beasiswa.php" class="nav-link fw-semibold">Beasiswa</a>
           </li>
           <li class="nav-item">
-            <a href="../user/perubahankelas.php" class="nav-link fw-semibold text-white">Perubahan Kelas</a>
+            <a href="../user/perubahankelas.php" class="nav-link fw-semibold">Perubahan Kelas</a>
           </li>
         </ul>
       </div>
@@ -52,80 +64,84 @@
 
   <!-- KONTEN UTAMA -->
   <main>
-    <div class="text-center my-4">
-      <h2 class="display-5 fw-bold">PENGUMUMAN AKADEMIK</h2>
-      <h5>Politeknik Negeri Batam</h5>
+    <!-- BERANDA -->
+    <!-- CAROUSEL BERANDA -->
+    <div id="carouselExampleAutoplaying" class="carousel slide position-relative" data-bs-ride="carousel">
+
+      <!-- TEKS TETAP -->
+      <div class="carouselText position-absolute top-50 start-50 translate-middle text-center text-white">
+        <h1 class="fw-bold fs-1">PENGUMUMAN AKADEMIK</h1>
+        <h5>Politeknik Negeri Batam</h5>
+      </div>
+
+      <!-- ISI CAROUSEL -->
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="../assets/CarouselPolibatam.jpg" class="d-block w-100" alt="Gambar 1">
+        </div>
+
+        <div class="carousel-item">
+          <img src="../assets/BackgroundPOLTEK.png" class="d-block w-100" alt="Gambar 2">
+        </div>
+
+        <div class="carousel-item">
+          <img src="../assets/PolibatamCarousel3.webp" class="d-block w-100" alt="Gambar 3">
+        </div>
+      </div>
+
+      <!-- TOMBOL -->
+      <button class="carousel-control-prev" type="button"
+        data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+      </button>
+
+      <button class="carousel-control-next" type="button"
+        data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+      </button>
+
     </div>
 
-    <!-- BERANDA -->
-    <section id="beranda" class="active">
-      <form method="post">
-        <!-- CAROUSEL BERANDA -->
-        <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-          <!-- ISI CAROUSEL -->
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img src="../assets/CarouselPolibatam.jpg" class="d-block w-100" alt="Gambar 1">
-            </div>
-            <div class="carousel-item">
-              <img src="../assets/BackgroundPOLTEK.png" class="d-block w-100" alt="Gambar 2">
-            </div>
-            <div class="carousel-item">
-              <img src="../assets/PolibatamCarousel3.webp" class="d-block w-100" alt="Gambar 3">
-            </div>
-          </div>
-
-          <!-- TOMBOL NAVIGASI -->
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Sebelumnya</span>
-          </button>
-
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Berikutnya</span>
-          </button>
-        </div>
-      </form>
-    </section>
 
     <!-- PENGUMUMAN TERBARU -->
-    <section id="pengumuman-terbaru">
-      <div class="container mt-5">
-        <h2 class="text-center mb-3">Pengumuman Terbaru</h2>
+    <div class="container mt-5">
+      <h2 class="text-center mb-3 fs-3">Pengumuman Terbaru</h2>
 
-        <!-- Filter + Search Bar -->
-        <div class="d-flex justify-content-start align-items-center mb-4 gap-2">
-          <input type="text" id="searchbar" name="searchbar" class="" placeholder="Cari Informasi...">
-          <button class="btn btn-primary" id="openFilter" data-bs-toggle="modal" data-bs-target="#filterModal">
-            <i class="bi bi-funnel-fill"></i>Filter
-          </button>
+      <!-- Filter + Search Bar -->
+      <div class="d-flex justify-content-start align-items-center mb-4 gap-2">
+        <input type="text" id="searchbar" name="searchbar" class="form-control shadow w-25" placeholder="Cari Informasi...">
+        <button class="btn btn-primary shadow " id="openFilter" data-bs-toggle="modal" data-bs-target="#filterModal">
+          <i class="bi bi-funnel-fill"></i>Filter
+        </button>
+      </div>
+
+      <div class="row">
+        <div id="cardContainer" class="row justify-content-center">
+          <?php
+          renderAllCard($conn);
+          ?>
         </div>
 
-        <div class="row">
-          <!-- 6 CARD DEFAULT -->
-          <div id="cardContainer">
-            <!-- Tempat Render Card-->
-          </div>
 
-
-    <!-- BIO WEB -->
-    <section id="bioweb" class="container mt-5 mb-5">
-      <h3 class="fw-semibold mt-3">Tentang WEB</h3>
-      <p class="fs-6">
-        Web Pengumuman Akademik Online adalah platform berbasis web yang dirancang untuk mempermudah penyampaian informasi akademik kepada mahasiswa secara cepat, efisien, dan terpusat.
-        Melalui sistem ini, mahasiswa dapat mengakses berbagai pengumuman penting seperti jadwal ujian, Beasiswa dan perubahan kelas kapan saja dan di mana saja.
-      </p>
-    </section>
+        <!-- BIO WEB -->
+        <div class="container mt-5 mb-5">
+          <h3 class="fw-semibold mt-3">Tentang WEB</h3>
+          <p class="fs-6">
+            Web Pengumuman Akademik Online adalah platform berbasis web yang dirancang untuk mempermudah penyampaian informasi akademik kepada mahasiswa secara cepat, efisien, dan terpusat.
+            Melalui sistem ini, mahasiswa dapat mengakses berbagai pengumuman penting seperti jadwal ujian, Beasiswa dan perubahan kelas kapan saja dan di mana saja.
+          </p>
+        </div>
+      </div>
+    </div>
   </main>
 
   <!-- FOOTER -->
-  <footer class="gradient-background text-white py-2 mt-5">
+  <footer class="gradient-background text-white py-1 mt-5">
     <div class="container">
       <div class="row align-items-center">
         <div class="col-md-4 text-center text-md-start mb-3 mb-md-0">
-          <img src="https://sim.polibatam.ac.id/assets/img_sim/d8f9867f-23a7-4558-974b-d3c03a621fa3.png"
-          alt="Logo" width="175">
+          <img src="../assets/Logo-Poltek.png"
+            alt="Logo" width="250">
         </div>
 
         <div class="col-md-4">
@@ -135,11 +151,11 @@
           <p class="mb-0">Telpon: +62-778-469858 Ext.1017</p>
         </div>
 
-        <div class="col-md-4 text-center mt-4">
+        <div class="col-md-4 text-center mt-0">
           <h5>Ikuti Kami</h5>
-          <a href="https://www.instagram.com/polibatamofficial?igsh=eGpjZm5jZmR4NTJy" class="btn btn-success mb-2"><i class="bi bi-instagram"></i>Instagram</a><br>
-          <a href="https://www.facebook.com/share/197ijZ4QfT/" class="btn btn-primary me-1"><i class="bi bi-facebook"></i>Facebook</a>
-          <a href="https://www.youtube.com/@PolibatamTV" class="btn btn-danger"><i class="bi bi-youtube"></i>Youtube</a>
+          <a href="https://www.instagram.com/polibatamofficial?igsh=eGpjZm5jZmR4NTJy" class="btn btn-success mb-2 shadow"><i class="bi bi-instagram"></i>Instagram</a><br>
+          <a href="https://www.facebook.com/share/197ijZ4QfT/" class="btn btn-primary me-1"><i class="bi bi-facebook shadow"></i>Facebook</a>
+          <a href="https://www.youtube.com/@PolibatamTV" class="btn btn-danger"><i class="bi bi-youtube shadow"></i>Youtube</a>
         </div>
       </div>
     </div>
@@ -161,15 +177,26 @@
         </div>
         <div class="modal-body">
           <div class="mb-3">
-            <label for="categoryFilter" class="form-label">Kategori :</label>
+            <label for="categoryFilter" class="form-label"><b>Kategori :</b></label>
             <select id="categoryFilter" class="form-select">
-              <option value="jadwal">Jadwal Ujian</option>
+              <option value="" disabled selected>Pilih Kategori Informasi</option>
+              <option value="jadwalUjian">Jadwal Ujian</option>
               <option value="beasiswa">Beasiswa</option>
-              <option value="kelas">Perubahan Kelas</option>
+              <option value="perubahanKelas">Perubahan Kelas</option>
             </select>
           </div>
           <div class="mb-3">
-            <label for="tglPublikasiFilter" class="form-label">Tanggal Publikasi :</label>
+            <label for="jurusanFilter" class="form-label"><b>Jurusan :</b></label>
+            <select name="JurusanFilter" id="JurusanFilter" class="form-select">
+              <option value="" disabled selected>Pilih Jurusan</option>
+              <option value="IT">Teknik Informatika</option>
+              <option value="MN">Teknik Mesin</option>
+              <option value="EK">Teknik Elektro</option>
+              <option value="MB">Manajemen Bisnis</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="tglPublikasiFilter" class="form-label"><b>Tanggal Publikasi :</b></label>
             <input type="date" id="tglPublikasiFilter" class="form-control">
           </div>
         </div>
@@ -181,44 +208,10 @@
     </div>
   </div>
 
-    <!-- Modal Detail Jadwal -->
-<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content bg-light border-0 shadow-lg rounded-4">
-      <!-- Header -->
-      <div class="modal-header border-0">
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-
-      <!-- Body -->
-      <div class="modal-body">
-        <!-- Gambar -->
-        <div class="mb-3">
-        </div>
-
-        <!-- Judul & Tanggal -->
-        <div class="d-flex justify-content-between align-items-start mb-3">
-          <h4 class="fw-bold" id="modalTitle"></h4>
-          <small class="fw-semibold text-muted" id="modalDate"></small>
-        </div>
-
-        <!-- Deskripsi -->
-        <div id="isiModal" class="text-dark text-warp" style="line-height: 1.6;">
-          
-        </div>
-
-        <!-- Link Download -->
-        <div class="mt-4">
-          <p class="fw-semibold text-danger mb-1" id="modalContent"></p>
-          <a href="#" id="detailLink" target="_blank" class="text-decoration-none fw-bold text-primary"></a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- JavaScript -->
-  <script src="../vendor/boostrap/js/bootstrap.bundle.js"></script>
+  <!-- JavaScript -->
+  <script src="../vendor/bootstrap/js/bootstrap.bundle.js"></script>
   
+
 </body>
+
 </html>
