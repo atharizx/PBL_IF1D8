@@ -1,76 +1,100 @@
 /* Penerbitan.php */
-    html,
-    body {
-      height: 100%;
-      font-family: "Roboto", sans-serif;
-    }
+html,
+body {
+  height: 100%;
+  font-family: "Roboto", sans-serif;
+}
 
-    body {
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 
-    main {
-      flex: 1;
-    }
+main {
+  flex: 1;
+}
 
-    .sidebar {
-      min-height: 100vh;
-    }
+.sidebar {
+  min-height: 100vh;
+}
 
-    section {
-      display: none;
-    }
-    section.active {
-      display: block;
-    }
+section {
+  display: none;
+}
 
-    .btn-upload {
-      display: flex;
-      justify-content: flex-end;
-    }
-
-    .modal-content {
-      background-color: rgba(40, 40, 40, 0.95);
-      backdrop-filter: blur(6px);
-    }
-    .list-group-item.active {
-    background-color: var(--bs-primary) !important;
-    border-color: var(--bs-primary) !important;
-    color: #fff !important;
-    }
-
-    /* MOBILE STYLING */
-    @media (max-width: 991.98px) {
-      .sidebar {
-        display: none;
-      }
-
-      .offcanvas-sidebar {
-        width: 80%;
-        background-color: #f8f9fa;
-      }
-
-      .navbar .menu-btn {
-        border: none;
-        background: none;
-        color: white;
-        font-size: 1.6rem;
-      }
-
-      .navbar-brand h3 {
-        font-size: 1.25rem;
-      }
-
-      .navbar img[alt="Logo"] {
-        width: 50px;
-      }
-
-      main .col-md-9 {
-        width: 100%;
-      }
-    }
+section.active {
+  display: block;
+}
 
 
+.btn-upload {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.modal-content {
+  background-color: rgba(40, 40, 40, 0.95);
+  backdrop-filter: blur(6px);
+}
+
+.list-group-item.active {
+  background-color: var(--bs-primary) !important;
+  border-color: var(--bs-primary) !important;
+  color: #fff !important;
+}
+
+.shadowForText {
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.4);
+}
+
+@media (max-width: 991.98px) {
+  /* Sembunyikan sidebar utama */
+  .sidebar {
+    display: none !important;
+  }
+
+  .offcanvas-sidebar {
+    width: 80%;
+    background-color: #f8f9fa;
+  }
+
+  .navbar .menu-btn {
+    border: none;
+    background: none;
+    color: white;
+    font-size: 1.6rem;
+    padding: 0.5rem;
+    margin-right: 0.75rem;
+  }
+
+  .navbar-brand h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0;
+  }
+
+  .navbar img[alt="Logo"] {
+    width: 110px;
+    height: auto;
+  }
+
+  main .col-md-9,
+  main .col-lg-9,
+  main .col-xl-9 {
+    width: 100% !important;
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; 
+  }
+
+  .table {
+    min-width: 800px;
+  }
+}
 
