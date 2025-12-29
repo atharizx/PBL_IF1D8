@@ -1,103 +1,103 @@
 <?php
 session_start();
-require_once '../config/db_conn.php';
-require_once '../helper/upload_helper.php';
-
+include '../config/db_conn.php';
+include '../models/insertData_model.php';   
 
 if (!isset($_POST['submitKelas'])) {
     header("Location: ../../public/admin/penerbitan.php");
     exit();
 }
-// INPUT TEXT
+
+$user_id = $_SESSION['user_id'];
+
+// Mengambil Data yang di input oleh user
+// Text
 $judulKelas   = $_POST['judulKelas'] ?? '';
 $deskripsiKelas = $_POST['deskripsiKelas'] ?? '';
 $masaBerlakuKelas = $_POST['masaBerlakuKelas'] ?? '';
 $jurusanKelas = $_POST['jurusanKelas'] ?? '';
-//INPUT FILE
+
+// File
 $fotoKelas   = $_FILES['gambarKelas'] ?? null;
 $excelKelas  = $_FILES['excelKelas'];
 
+// Variable Pembantu Untuk Output Validasi
 $errorKelas = [];
-$errorSizeKelas = [];
-$errorTypeKelas = [];
-$maxSizeKelas = 5 * 1024 * 1024;
 $helperAlertKelas = "tidak boleh kosong! Mohon isi input tersebut";
 $helperAlertSizeKelas = "Melebihi Batas Ukuran";
 $helperAlertTypeKelas = "Jenis file tidak dapat diterima";
-$allowedImgKelas = ['png', 'jpeg', 'jpg'];
-$allowedExlKelas = ['xls', 'xlsx'];
 
-// VALIDASI TEKS
-if (empty(trim($judulKelas))) $errorKelas[] = "<b>Judul</b>";
-if (empty(trim($deskripsiKelas))) $errorKelas[] = "<b>Deskripsi</b>";
-if (empty(trim($masaBerlakuKelas))) $errorKelas[] = "<b>Masa Berlaku</b>";
-if (empty(trim($jurusanKelas))) $errorKelas[] = "<b>Jurusan</b>";
+// variable Pembantu Untuk Validasi File
+$strImgName = $fotoKelas['name'];
+$strExcelName = $excelKelas['name'];
+$isUploadImg = $fotoKelas && $fotoKelas['error'] === 0;
+$xImg = explode('.', $fotoKelas['name'] ?? '');
+$xExcel = explode('.', $excelKelas['name']);
+$extImg = strtolower(end($xImg));
+$extExcel = strtolower(end($xExcel));
+
+// Ketentuan Penyimpanan File
+$maxSizeImgKelas = 2000000;
+$maxSizeExcelKelas = 3000000;
+$allowedImgKelas = array('png', 'jpeg', 'jpg');
+$allowedExcelKelas = array('xls', 'xlsx');
+
+// Validasi Teks
+if (empty(trim($judulKelas))) $errorKelas[] = "<b>Judul </b>";
+if (empty(trim($deskripsiKelas))) $errorKelas[] = "<b>Deskripsi </b>";
+if (empty(trim($masaBerlakuKelas))) $errorKelas[] = "<b>Masa Berlaku </b>";
+if (empty(trim($jurusanKelas))) $errorKelas[] = "<b>Jurusan </b>";
 
 // VALIDASI FILE
-
-//Validasi Excel
-$extExcel = strtolower(pathinfo($excelKelas['name'], PATHINFO_EXTENSION));
+// Excel
 if ($excelKelas['error'] === 4) $errorKelas[] = "<b>File Excel</b>";
-if (!in_array($extExcel, $allowedExlKelas)) $errorTypeKelas[] = "<b>File Excel</b>";
-if ($excelKelas['size'] > $maxSizeKelas) $errorSizeKelas[] = "<b>File Excel</b>";
+if ($excelKelas['size'] > $maxSizeExcelKelas) $errorSizeKelas[] = "<b>File Excel </b>";
+if(!in_array($extExcel, $allowedExcelKelas)) $errorTypeKelas[] = "<b>File Excel </b>";
+move_uploaded_file($excelKelas['tmp_name'], '../../public/upload/perubahanKelas/excel/' . $strExcelName);
 
-//Validasi Foto Thumbnail
-$isUploadImg = $fotoKelas && $fotoKelas['error'] === 0;
+// Img
 if ($isUploadImg) {
-    if ($fotoKelas['size'] > $maxSizeKelas) $errorSizeKelas[] = "<b>File Foto</b>";
-    $extImg = strtolower(pathinfo($fotoKelas['name'], PATHINFO_EXTENSION));
-    if (!in_array($extImg, $allowedImgKelas)) $errorTypeKelas[] = "<b>File Foto</b>";
+    if ($fotoKelas['size'] > $maxSizeImgKelas) $errorSizeKelas[] = "<b>Foto Kelas </b>";
+    if (!in_array($extImg, $allowedImgKelas)) $errorTypeKelas[] = "<b>Foto Kelas </b>" ?? null;
+    move_uploaded_file($fotoKelas['tmp_name'], '../../public/upload/perubahanKelas/img/' . $strImgName);
 }
 
-// LOGIC ERROR SESSION
+// MAIN Branching   
 if (!empty($errorKelas)) {
     $_SESSION['msg_empty_kelas'] = "Input " . implode(", ", $errorKelas) . " " . $helperAlertKelas;
     header("Location: ../../public/admin/penerbitan.php");
     exit();
 }
-if ($errorSizeKelas) {
+if (!empty($errorSizeKelas)) {
     $_SESSION['msg_size_kelas'] = implode(", ", $errorSizeKelas) . " " . $helperAlertSizeKelas . "!";
     header("Location: ../../public/admin/penerbitan.php");
     exit();
 }
-if ($errorTypeKelas) {
+if (!empty($errorTypeKelas)) {
     $_SESSION['msg_type_kelas'] = implode(", ", $errorTypeKelas) . " " . $helperAlertTypeKelas . "!";
     header("Location: ../../public/admin/penerbitan.php");
     exit();
 }
 
-// Proses Mengganti Nama File
-
-// File Excel
-$excelKelasNewName = uploadFile($excelKelas, "../../public/upload/perubahanKelas/excel/", "ExcelPerubahanKelas");
-
-// File Foto (Jika Ada)
-if ($isUploadImg) {
-    $fotoKelasNewName = uploadFile($fotoKelas, "../../public/upload/perubahanKelas/img/", "FotoPerubahanKelas");
-} else {
-    $fotoKelasNewName = null;
-}
-
-require_once '../models/upload_model.php';
-
 $data = [
-    'judul' => $judulKelas,
-    'deskripsi'    => $deskripsiKelas,
-    'masaberlaku'  => $masaBerlakuKelas,
-    'jurusan' => $jurusanKelas,
-    'fotokelas' => $fotoKelasNewName,
-    'excelkelas' => $excelKelasNewName
+    'judul' => $judulKelas, 
+    'masaberlaku' => $masaBerlakuKelas, 
+    'deskripsi' => $deskripsiKelas, 
+    'jurusan' => $jurusanKelas, 
+    'excelkelas' => $strExcelName, 
+    'fotokelas' => $strImgName,
+    'user_id' => $user_id
 ];
 
-$insertKelas = storeData($conn, "perubahankelas", $data);
+$result = insertDataInformation($conn , $data, 'perubahankelas');
 
-if ($insertKelas) {
-    $_SESSION['msg_success_kelas'] = "Informasi Perubahan Kelas Berhasil Ditambahkan.";
+if ($result) {
+    $_SESSION['msg_success_kelas'] = "Informasi Perubahan Kelas berhasil ditambahkan.";
 } else {
-    $_SESSION['msg_error_kelas'] = "Gagal Menambahkan Informasi.";
+    $_SESSION['msg_error_kelas'] = "Gagal menyimpan data, Harap mencoba lagi setelah beberapa menit.";
 }
 
 header("Location: ../../public/admin/penerbitan.php");
 exit();
 
-$conn->close();
+mysqli_close($conn);
