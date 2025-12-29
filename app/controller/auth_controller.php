@@ -1,37 +1,36 @@
 <?php
-require_once '../config/db_conn.php';
 session_start();
+include '../config/db_conn.php';
+include '../models/auth_model.php';
 
+// Mengambil Value yang di inputkan user
 $nidn = $_POST['nidn'];
-$password = $_POST['pass'];
+$pass = $_POST['pass'];
 
-require_once '../models/auth_model.php';
+// Mengecek Keberadaan User di Database
+$result = authDataSelect($conn, $nidn, $pass);
 
-$stmt = getAdminByNidn($conn, $nidn);
+// Branching berdasarkan hasil pengecekan
+if (mysqli_num_rows($result) > 0) {
+    $row = mysqli_fetch_array($result);
 
-if ($stmt->num_rows === 1) {
-    $stmt->bind_result($db_nidn, $db_pw, $db_nama, $db_id);
-    $stmt->fetch();
-
-    // Braching
-    if ($password === $db_pw) {
-        $_SESSION['nidn'] = $db_nidn;
-        $_SESSION['nama'] = "<b>" . $db_nama . "</b>";
-        $_SESSION['user_id'] = $db_id;
-
-        $_SESSION['login_success'] = "Selamat Datang " . $_SESSION['nama'] . "!";
+    $_SESSION['nidn'] = $row['nidn'];
+    $_SESSION['nama'] = $row['nama'];
+    $_SESSION['user_id'] = $row['id'];
+    $_SESSION['role'] = $row['role'];
+     
+// Pembuatan Session untuk alert
+    $_SESSION['login_success'] = "Selamat Datang " . $_SESSION['nama'] . "!";
+    
+    if ($_SESSION['role'] == 'dosen') {
         header("Location: ../../public/admin/penerbitan.php");
-        exit();
     } else {
-        $_SESSION['login_error'] = "NIDN atau Password Salah.";
-        header("Location: ../../public/admin/loginpage.php");
-        exit();
+        header("Location: ../../public/admin/tambahAkun.php");
     }
+    exit();
+
 } else {
     $_SESSION['login_error'] = "NIDN atau Password Salah.";
     header("Location: ../../public/admin/loginpage.php");
     exit();
 }
-
-$stmt->close();
-$conn->close();
