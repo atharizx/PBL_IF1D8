@@ -1,6 +1,6 @@
 <?php 
-require_once 'alert_helper.php';
 
+// Function Pembantu Untuk Menampilkan Alert pada penerbitan.php dan riwayat.php
 function showAlertJadwal() {
     alertWithoutBtn('msg_success_jadwal', 'success', 'Berhasil!');
     alertWithoutBtn('msg_error_jadwal', 'error', 'Gagal');
@@ -24,4 +24,20 @@ function showAlertKelas() {
     alertWithoutBtn('msg_size_kelas', 'warning', 'Peringatan!');
     alertWithoutBtn('msg_type_kelas', 'warning', 'Peringatan!');
 }
+
+function showAlertEditAcc() {
+    alertWithoutBtn('msg_success_editAcc', 'success', 'Berhasil!');
+    alertWithoutBtn('msg_error_editAcc', 'error', 'Gagal');
+}
+
+function showAlertAddAcc() {
+    alertWithoutBtn('msg_success_addAcc', 'success', 'Berhasil!');
+    alertWithoutBtn('msg_error_addAcc', 'success', 'Gagal!');
+}
+
+function ShowAlertDelAcc() {
+    alertWithoutBtn('msg_success_delAcc', 'success', 'Berhasil!');
+    alertWithoutBtn('msg_error_delAcc', 'error', 'Gagal');
+}
+
 ?>
