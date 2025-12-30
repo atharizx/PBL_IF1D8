@@ -14,11 +14,22 @@ document.addEventListener("DOMContentLoaded", () => {
         sections.forEach(sec => sec.classList.remove("active"));
         const target = document.getElementById(pageId);
         if (target) target.classList.add("active");
-
-        localStorage.setItem("lastPage", pageId);
+        
     };
 
-    const lastPage = localStorage.getItem("lastPage") || "jadwalUjian";
+    const urlParams = new URLSearchParams(window.location.search);
+    const type = urlParams.get('type');
 
-    showPage(lastPage, null);
+    let tabYangDibuka = 'jadwalUjian';
+
+    if (type === 'jadwalujian') {
+        tabYangDibuka = 'jadwalUjian';
+    } else if (type === 'beasiswa') {
+        tabYangDibuka = 'beasiswa';
+    } else if (type === 'perubahankelas') {
+        tabYangDibuka = 'perubahanKelas';
+    }
+
+    showPage(tabYangDibuka, null);
+
 });
