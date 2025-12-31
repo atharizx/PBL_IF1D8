@@ -12,13 +12,17 @@ yang dapat membantu mempermudah proses pengelolaan data serta meningkatkan efisi
 
 ## Anggota Kelompok  
 |------|------|-------|
-| Rivanysah Adrian | 3312501118 | Frontend Developer |
-| Naila Tenri Azera Narang | 3312501116 | Frontend Developer, Designer UI/UX |
-| Affatha Rizky Sena | 3312501117 | Frontend & Backend Developer |
+| Rivanysah Adrian | 3312501118 | Frontend Developer, Backend Developer|
+| Naila Tenri Azera Narang | 3312501116 | Frontend & Backend Developer, Designer UI/UX |
+| Affatha Rizky Sena | 3312501117 | Frontend & Backend Developer, Designer UI/UX |
 
 ---
 
 ## Teknologi yang Digunakan
+
+### **Text Editor**
+- VsCode
+
 ### **Frontend**
 - HTML, CSS, JavaScript  
 - Bootstrap 5  
@@ -29,14 +33,12 @@ yang dapat membantu mempermudah proses pengelolaan data serta meningkatkan efisi
 ### **Database**
 - MySQL  
 
-### **Tools**
-- GitHub  
-- VSCode  
+### **Tools Pembantu**
+- GitHub
 - Laragon
-- 
+- QwenAI
+
 ## Fitur Utama
 - Login & Authentikasi  
-- CRUD Data …    
-- UI/UX interaktif  
-- wExport data  
-
+- CRUD (Create, Read, Update, Delete)    
+- UI/UX interaktif
