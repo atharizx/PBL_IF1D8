@@ -1,6 +1,7 @@
 <?php
 session_start();
 include '../config/db_conn.php';
+include '../models/insertData_model.php';
 
 if (!isset($_POST['submitBeasiswa'])) {
     header("Location: ../../public/admin/penerbitan.php");
@@ -21,6 +22,8 @@ $fotoBeasiswa = $_FILES['gambarBeasiswa'] ?? null;
 
 // Variable Pembantu Untuk Output Validasi
 $errorBeasiswa = [];
+$errorSizeBeasiswa = [];
+$errorTypeBeasiswa = [];
 $helperAlertBeasiswa = "tidak boleh kosong! Mohon isi input tersebut";
 $helperAlertSizeBeasiswa = "Melebihi Batas Ukuran";
 $helperAlertTypeBeasiswa = "Jenis file tidak dapat diterima";
@@ -74,7 +77,7 @@ $data = [
     'user_id' => $user_id
 ];
 
-$result = insertDataInformation($conn, $query, 'beasiswa');
+$result = insertDataInformation($conn, $data, 'beasiswa');
 
 if ($result) {
     $_SESSION['msg_success_beasiswa'] = "Informasi Beasiswa berhasil ditambahkan.";
