@@ -1,11 +1,11 @@
 <?php
-require_once '../../app/config/db_conn.php';
-require_once '../../app/component/userCard.php';
-require_once '../../app/models/expiredCheck_model.php';
+include '../../app/config/db_conn.php';
+include '../../app/controller/cardSubPage_controller.php';
+include '../../app/models/expiredCheck_model.php';
 
-autoDeleteExpiredInformation($conn, "jadwalujian");
 autoDeleteExpiredInformation($conn, "beasiswa");
-autoDeleteExpiredInformation($conn, "perubahankelas");
+
+$tanggal = $_GET['tanggal'] ?? '';
 
 ?>
 <!DOCTYPE html>
@@ -17,7 +17,7 @@ autoDeleteExpiredInformation($conn, "perubahankelas");
   <title>Beasiswa</title>
   <link rel="icon" href="../assets/Logo-Poltek.png">
   <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="../vendoor/bootstrap/icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../vendor/bootstrap/icons/bootstrap-icons.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <script src="../vendor/sweetalert/sweetalert2.all.min.js"></script>
   <link href="../style/extuser.css" rel="stylesheet">
@@ -44,16 +44,19 @@ autoDeleteExpiredInformation($conn, "perubahankelas");
       <div class="collapse navbar-collapse" id="navbarMenu">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-lg-center">
           <li class="nav-item">
-            <a href="../user/beranda.php" class="nav-link fw-semibold">Beranda</a>
+            <a href="../../index.php" class="nav-link fw-semibold">Beranda</a>
           </li>
           <li class="nav-item">
-            <a href="../user/jadwalujian.php" class="nav-link fw-semibold">Jadwal Ujian</a>
+            <a href="jadwalujian.php" class="nav-link fw-semibold">Jadwal Ujian</a>
           </li>
           <li class="nav-item">
-            <a href="../user/beasiswa.php" class="nav-link fw-semibold">Beasiswa</a>
+            <a href="beasiswa.php" class="nav-link fw-semibold">Beasiswa</a>
           </li>
           <li class="nav-item">
-            <a href="../user/perubahankelas.php" class="nav-link fw-semibold">Perubahan Kelas</a>
+            <a href="perubahankelas.php" class="nav-link fw-semibold">Perubahan Kelas</a>
+          </li>
+          <li class="nav-item">
+            <a href="../../public/admin/loginpage.php" class="fw-semibold btn btn-primary">Login</a>
           </li>
         </ul>
       </div>
@@ -79,7 +82,7 @@ autoDeleteExpiredInformation($conn, "perubahankelas");
 
           <div class="row" id="cardContainer">
             <?php
-            renderCardBeasiswa($conn);
+            userCardRender($conn, "beasiswa", $filter = ['tanggal' => $tanggal]);
             ?>
           </div>
 
@@ -96,100 +99,69 @@ autoDeleteExpiredInformation($conn, "perubahankelas");
   </main>
 
   <!-- FOOTER -->
-  <footer class="gradient-background text-white py-1 mt-5">
+  <footer class="bg-dark text-white pt-4 pb-3">
     <div class="container">
-      <div class="row align-items-center">
-        <div class="col-md-4 text-center text-md-start mb-3 mb-md-0">
-          <img src="../assets/Logo-Poltek.png"
-            alt="Logo" width="250">
+      <!-- DESKTOP: ROW | MOBILE: COLUMN -->
+      <div class="row align-items-center justify-content-between g-4">
+
+        <!-- KOL 1: LOGO -->
+        <div class="col-md-4 text-center text-md-start">
+          <img src="../assets/Logo-Poltek.png" alt="Politeknik Negeri Batam" width="200" class="mb-3 mb-md-0">
         </div>
 
-        <div class="col-md-4">
+        <!-- KOL 2: ALAMAT & KONTAK -->
+        <div class="col-md-4 text-center text-md-start">
           <h5>Alamat & Kontak</h5>
-          <p class="mb-1">Jln. Ahmad Yani Batam Kota, Kota Batam, Kepulauan Riau, Indonesia</p>
+          <p class="mb-1">Jl. Ahmad Yani, Batam Kota<br>Kepulauan Riau, Indonesia</p>
           <p class="mb-1">Email: info@polibatam.ac.id</p>
-          <p class="mb-0">Telpon: +62-778-469858 Ext.1017</p>
+          <p class="mb-0">Telp: +62 778 469858 Ext.1017</p>
         </div>
 
-        <div class="col-md-4 text-center mt-0">
+        <!-- KOL 3: SOSIAL MEDIA -->
+        <div class="col-md-4 text-center">
           <h5>Ikuti Kami</h5>
-          <a href="https://www.instagram.com/polibatamofficial?igsh=eGpjZm5jZmR4NTJy" class="btn btn-success mb-2 shadow"><i class="bi bi-instagram"></i>Instagram</a><br>
-          <a href="https://www.facebook.com/share/197ijZ4QfT/" class="btn btn-primary me-1"><i class="bi bi-facebook shadow"></i>Facebook</a>
-          <a href="https://www.youtube.com/@PolibatamTV" class="btn btn-danger"><i class="bi bi-youtube shadow"></i>Youtube</a>
+          <div class="d-flex justify-content-center gap-2 flex-wrap">
+            <a href="https://www.instagram.com/polibatamofficial" class="btn btn-outline-light btn-sm" target="_blank" aria-label="Instagram">
+              <i class="bi bi-instagram"></i>
+            </a>
+            <a href="https://www.facebook.com/share/197ijZ4QfT/" class="btn btn-outline-light btn-sm" target="_blank" aria-label="Facebook">
+              <i class="bi bi-facebook"></i>
+            </a>
+            <a href="https://www.youtube.com/@PolibatamTV" class="btn btn-outline-light btn-sm" target="_blank" aria-label="YouTube">
+              <i class="bi bi-youtube"></i>
+            </a>
+          </div>
         </div>
+
+      </div>
+
+      <!-- COPYRIGHT -->
+      <div class="text-center pt-3 border-top border-secondary mt-4">
+        <p class="mb-0">&copy; 2025 Politeknik Negeri Batam</p>
       </div>
     </div>
   </footer>
 
-  <footer class="bg-black text-white py-1">
-    <div class="container text-center">
-      <p class="mb-0 fs-6">© 2025 Politeknik Negeri Batam</p>
-    </div>
-  </footer>
   <!-- MODAL FILTER -->
   <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
-        <div class="modal-header bg-primary text-white">
-          <h5 class="modal-title" id="filterModalLabel">Filter Pengumuman</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div class="mb-3">
-            <label for="categoryFilter" class="form-label">Kategori :</label>
-            <select id="categoryFilter" class="form-select">
-              <option value="jadwal_filter">Jadwal Ujian</option>
-              <option value="beasiswa_filter">Beasiswa</option>
-              <option value="kelas_filter">Perubahan Kelas</option>
-            </select>
+        <form method="GET" action="beasiswa.php">
+          <div class="modal-header bg-primary text-white">
+            <h5 class="modal-title" id="filterModalLabel">Filter Pengumuman</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="mb-3">
-            <label for="tanggal_publikasi_filter" class="form-label">Tanggal Publikasi :</label>
-            <input type="date" id="tanggal_publikasi_filter" class="form-control">
+          <div class="modal-body">
+            <div class="mb-3">
+              <label class="form-label"><b>Tanggal Publikasi :</b></label>
+              <input type="date" name="tanggal" class="form-control" value="<?= $_GET['tanggal'] ?? '' ?>">
+            </div>
           </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" id="resetBtn" class="btn btn-secondary" data-bs-dismiss="modal">Reset</button>
-          <button type="button" id="applyBtn" class="btn btn-primary">Terapkan</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-  <!-- Modal Detail Jadwal -->
-  <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-      <div class="modal-content bg-light border-0 shadow-lg rounded-4">
-        <!-- Header -->
-        <div class="modal-header border-0">
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-
-        <!-- Body -->
-        <div class="modal-body">
-          <!-- Gambar -->
-          <div class="mb-3">
-            <!-- Tempat Render Gambar -->
+          <div class="modal-footer">
+            <a href="index.php" class="btn btn-secondary">Reset</a>
+            <button type="submit" class="btn btn-primary">Terapkan</button>
           </div>
-
-          <!-- Judul & Tanggal -->
-          <div class="d-flex justify-content-between align-items-start mb-3">
-            <h4 class="fw-bold" id="modalTitle"></h4>
-            <small class="fw-semibold text-muted" id="modalDate"></small>
-          </div>
-
-          <!-- Deskripsi -->
-          <div id="isiModal" class="text-dark text-warp" style="line-height: 1.6;">
-
-          </div>
-
-          <!-- Link Download -->
-          <div class="mt-4">
-            <p class="fw-semibold text-danger mb-1" id="modalContent"></p>
-            <a href="#" id="detailLink" target="_blank" class="text-decoration-none fw-bold text-primary"></a>
-          </div>
-        </div>
+        </form>
       </div>
     </div>
   </div>
