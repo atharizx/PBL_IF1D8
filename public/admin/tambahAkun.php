@@ -1,7 +1,7 @@
 <?php
 session_start();
 include '../../app/config/db_conn.php';
-include '../../app/controller/accountTable_controller.php';
+include '../../app/controller/riwayatTable_controller.php';
 include '../../app/component/alert.php';
 include '../../app/helper/showalert_helper.php';
 include '../../app/controller/sessionCheck_controller.php';
@@ -9,8 +9,14 @@ include '../../app/controller/sessionCheck_controller.php';
 $nama = $_SESSION['nama'];
 $nidn = $_SESSION['nidn'];
 
-sessionCheckHandler();
-roleCheckHandlerAtTambahAkun();
+if (!isset($_SESSION['user_id'])) {
+  header("Location: loginpage.php");
+  exit();
+}
+
+roleCheckHandlerAtPenerbitan();
+
+$tanggal = $_GET['tanggal'] ?? '';
 
 ?>
 
@@ -20,7 +26,7 @@ roleCheckHandlerAtTambahAkun();
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tambah Akun Dosen</title>
+  <title>Riwayat Penerbitan</title>
   <link href="../assets/Logo-Poltek.png" rel="icon">
   <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -49,6 +55,10 @@ roleCheckHandlerAtTambahAkun();
       <!-- KANAN: MENU DESKTOP -->
       <div class="collapse navbar-collapse justify-content-end">
         <ul class="navbar-nav align-items-center gap-3">
+
+          <li class="nav-item">
+            <a href="../admin/penerbitan.php" class="nav-link fw-bold">Beranda</a>
+          </li>
 
           <!-- PROFILE DROPDOWN -->
           <li class="nav-item dropdown">
@@ -89,6 +99,10 @@ roleCheckHandlerAtTambahAkun();
 
     <div class="offcanvas-body">
       <div class="list-group mb-3">
+        <a href="../admin/penerbitan.php"
+          class="list-group-item list-group-item-action fw-semibold mb-2 rounded">
+          Beranda
+        </a>
         <button
           class="list-group-item list-group-item-action text-danger fw-bold btn btn-light"
           data-bs-dismiss="offcanvas"
@@ -105,10 +119,10 @@ roleCheckHandlerAtTambahAkun();
       <div class="row">
         <!-- ISI KONTEN -->
         <div class="mt-5">
-          <h3 class="mb-4 fw-bold text-center">DASHBOARD KONTROL AKUN DOSEN</h3>
+          <h3 class="mb-4 fw-bold text-center">RIWAYAT PENERBITAN</h3>
           <div class="row mb-3 gap-2">
             <div class="col-auto">
-              <button class="btn btn-primary shadow" data-bs-toggle="modal" data-bs-target="#tambahAkun">+ Tambah Akun</button>
+              <button class="btn btn-primary shadow" data-bs-toggle="modal" data-bs-target="#modalFilter">Filter</button>
             </div>
           </div>
 
@@ -118,13 +132,15 @@ roleCheckHandlerAtTambahAkun();
               <thead class="table-dark text-center">
                 <tr>
                   <th>NO</th>
-                  <th>Nidn</th>
-                  <th>Nama</th>
+                  <th>Tanggal</th>
+                  <th>Kategori</th>
+                  <th>Judul</th>
+                  <th>Deskripsi</th>
                   <th>Aksi</th>
                 </tr>
               </thead>
               <tbody id="tabelInformasi">
-                <?php renderTabelAccount($conn) ?>
+                <?php renderTabelRiwayat($conn, $filter = ['tanggal' => $tanggal]) ?>
               </tbody>
             </table>
           </div>
@@ -140,36 +156,24 @@ roleCheckHandlerAtTambahAkun();
     </div>
   </footer>
 
-  <!-- MODAL TAMBAH AKUN -->
-  <div class="modal fade" id="tambahAkun" tabindex="-1" aria-labelledby="tambahAkunLabel" aria-hidden="true">
+  <!-- MODAL FILTER -->
+  <div class="modal fade" id="modalFilter" tabindex="-1" aria-labelledby="modalFilterLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
-        <!-- Form kirim ke HALAMAN YANG SAMA -->
-        <form method="POST" action="../../app/controller/addAcc_controller.php">
-          <div class="modal-header bg-primary text-white">
-            <h5 class="modal-title" id="filterModalLabel">Tambah Akun Dosen</h5>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title" id="filterModalLabel">Filter Pengumuman</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="riwayat.php" method="GET">
           <div class="modal-body bg-white">
             <div class="mb-3">
-              <label class="form-label"><b>NIDN :</b></label>
-              <input type="text" name="nidn" class="form-control shadow-sm" placeholder="Masukkan NIDN..." required>
+              <label for="tanggal" class="form-label"><b>Tanggal Publikasi :</b></label>
+              <input type="date" id="tanggal" name="tanggal" class="form-control" value="<?= $_GET['tanggal'] ?? '' ?>">
             </div>
-
-            <div class="mb-3">
-              <label class="form-label"><b>Nama :</b></label>
-              <input type="text" name="nama" class="form-control shadow-sm" placeholder="Masukkan NAMA..." required>
-            </div>
-
-            <div class="mb-3">
-              <label class="form-label"><b>Password :</b></label>
-              <input type="password" name="pass" class="form-control shadow-sm" placeholder="Masukkan Password..." required>
-            </div>
-
           </div>
           <div class="modal-footer bg-white">
-            <!-- Terapkan = submit form -->
-            <button type="submit" class="btn btn-primary">Tambah Akun</button>
+            <button type="reset" id="resetBtn" class="btn btn-secondary">Reset</button>
+            <button type="submit" id="applyBtn" class="btn btn-primary">Terapkan</button>
           </div>
         </form>
       </div>
@@ -182,15 +186,13 @@ roleCheckHandlerAtTambahAkun();
   <?php
   alertWithConfirmButtonAndResultLogic('notLogin', '../../public/admin/loginpage.php', 'error', 'Peringatan!', 'Login');
   alertLogout('btnLogoutDesktop', 'btnLogoutMobile');
-  showAlertAddAcc();
-  ShowAlertDelAcc();
-  alertWithoutBtn('login_success', 'success', 'Berhasil Login!');
-  alertWithoutBtn('nidn_already_used', 'error', 'Gagal');
-  alertWithoutBtn('nama_already_used', 'error', 'Gagal');
-  alertWithoutBtn('nidn_too_much', 'error', 'Gagal');
-  alertWithoutBtn('nidn_less_than_10', 'error', 'Gagal');
-  alertWithoutBtn('pw_less_than_8', 'error', 'Gagal');
+  showAlertJadwal();
+  showAlertBeasiswa();
+  showAlertKelas();
+
   ?>
+
+
 
 </body>
 
