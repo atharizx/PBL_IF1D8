@@ -311,7 +311,7 @@ if ($edit_id !== '' && $edit_type !== '') {
 
                     <div class="mb-3">
                       <label for="gambarBeasiswa" class="fw-semibold">Upload Foto (optional) :</label>
-                      <input type="file" class="form-control shadow" id="gambarBeasiswa" name="gambarBeasiswa">
+                      <input type="file" class="form-control shadow" id="gambarBeasiswa" name="gambarBeasiswa" accept=".png,.jpg,.jpeg">
                     </div>
 
                     <div class="mb-3">
